@@ -36,7 +36,7 @@ public class TestWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-        Log.e("geolo", "onReceive() -- 接收主动点击刷新广播/系统刷新广播");
+        Log.e("geolo", "onReceive() -- 接收主动点击刷新广播/系统刷新广播， intent.getAction ->" + intent.getAction());
         //接收主动点击刷新广播/系统刷新广播
         if (TextUtils.equals(intent.getAction(), REFRESH_ACTION)
                 || TextUtils.equals(intent.getAction(), APPWIDGET_UPDATE)) {

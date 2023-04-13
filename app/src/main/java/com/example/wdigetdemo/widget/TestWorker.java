@@ -22,6 +22,8 @@ public class TestWorker extends Worker {
 
     public TestWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
+        Log.e("geolo", "TestWorker--TestWorker() -- 初始化 TestWorker");
+
     }
 
     @NonNull
