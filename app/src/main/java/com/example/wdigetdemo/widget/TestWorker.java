@@ -27,6 +27,7 @@ public class TestWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        Log.e("geolo", "TestWorker--doWork() -- 模拟耗时/网络请求操作");
         //模拟耗时/网络请求操作
         try {
             Thread.sleep(500);
@@ -44,6 +45,7 @@ public class TestWorker extends Worker {
      * 刷新widget
      */
     private void updateWidget(Context context) {
+        Log.e("geolo", "TestWorker--updateWidget() -- 通过远程对象修改textview");
         String data = TimeUtil.long2String(System.currentTimeMillis(), TimeUtil.HOUR_MM_SS);
         //只能通过远程对象来设置appwidget中的控件状态
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);

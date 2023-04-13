@@ -36,6 +36,7 @@ public class TestWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
+        Log.e("geolo", "onReceive() -- 接收主动点击刷新广播/系统刷新广播");
         //接收主动点击刷新广播/系统刷新广播
         if (TextUtils.equals(intent.getAction(), REFRESH_ACTION)
                 || TextUtils.equals(intent.getAction(), APPWIDGET_UPDATE)) {
@@ -47,6 +48,7 @@ public class TestWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
+        Log.e("geolo", "onUpdate() -- 到达指定的更新时间或者当用户向桌面添加AppWidget时被调用,或更新widget时");
         //到达指定的更新时间或者当用户向桌面添加AppWidget时被调用,或更新widget时
 
         //点击事件
@@ -74,10 +76,12 @@ public class TestWidgetProvider extends AppWidgetProvider {
     public void onDeleted(Context context, int[] appWidgetIds) {
         super.onDeleted(context, appWidgetIds);
         //删除一个AppWidget时调用
+        Log.e("geolo", "onDeleted() -- 删除一个AppWidget时调用");
     }
 
     @Override
     public void onEnabled(Context context) {
+        Log.e("geolo", "onEnabled() -- AppWidget的实例第一次被创建时调用, 开始定时工作,间隔15分钟刷新一次");
         //AppWidget的实例第一次被创建时调用
         super.onEnabled(context);
         //开始定时工作,间隔15分钟刷新一次
@@ -93,6 +97,7 @@ public class TestWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onDisabled(Context context) {
+        Log.e("geolo", "onDisabled() -- 删除一个AppWidget时调用");
         //删除一个AppWidget时调用
         super.onDisabled(context);
         //停止任务
