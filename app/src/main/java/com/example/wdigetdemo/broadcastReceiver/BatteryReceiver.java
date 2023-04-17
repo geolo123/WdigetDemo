@@ -11,11 +11,11 @@ import androidx.work.WorkManager;
 import com.example.wdigetdemo.widget.UploadUtils;
 import com.example.wdigetdemo.works.TestWorker;
 
-public class TimeTickReceiver extends BroadcastReceiver {
+public class BatteryReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e("geolo", "TimeTickReceiver - onReceive() -- 接收广播， intent.getAction ->" + intent.getAction());
+        Log.e("geolo", "BatteryReceiver - onReceive() -- 接收广播， intent.getAction ->" + intent.getAction());
         WorkManager.getInstance(context).enqueue(OneTimeWorkRequest.from(TestWorker.class));
         UploadUtils.saveActionTime(context,intent);
     }

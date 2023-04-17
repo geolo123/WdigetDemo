@@ -41,22 +41,9 @@ public class TestWidgetProvider extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
         Log.e("geolo", "onReceive() -- 接收主动点击刷新广播/系统刷新广播， intent.getAction ->" + intent.getAction());
-        String action = intent.getAction();
-        //接收主动点击刷新广播/系统刷新广播
-
         //执行一次任务
         WorkManager.getInstance(context).enqueue(OneTimeWorkRequest.from(TestWorker.class));
-
-        try {
-            String data = TimeUtil.long2String(System.currentTimeMillis(), TimeUtil.HOUR_MM_SS);
-            SharedPreferences sp = context.getSharedPreferences("geolo", Context.MODE_PRIVATE);
-            HashSet<String> setList = (HashSet<String>) sp.getStringSet(action, new HashSet<>());
-            HashSet<String> newSetList = new HashSet<>(setList);
-            newSetList.add(data);
-            sp.edit().putStringSet(action, newSetList).apply();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        UploadUtils.saveActionTime(context,intent);
     }
 
     @Override

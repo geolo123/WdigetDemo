@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.example.wdigetdemo.broadcastReceiver.TimeTickReceiver;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -49,17 +51,14 @@ public class UploadUtils {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
         intentFilter.addAction("android.appwidget.action.APPWIDGET_UPDATE");
-        intentFilter.addAction(Intent.ACTION_BOOT_COMPLETED);
         intentFilter.addAction(Intent.ACTION_EXTERNAL_APPLICATIONS_AVAILABLE);
         intentFilter.addAction(REFRESH_ACTION);
         intentFilter.addAction(REFRESH_ACTION2);
         intentFilter.addAction(REFRESH_ACTION3);
         intentFilter.addAction(Intent.ACTION_DATE_CHANGED);
         intentFilter.addAction("android.app.action.NEXT_ALARM_CLOCK_CHANGED");
-        intentFilter.addAction("android.intent.action.TIME_SET");
         intentFilter.addAction("android.intent.action.SCREEN_ON");
         intentFilter.addAction("android.intent.action.USER_PRESENT");
-        intentFilter.addAction("android.intent.action.TIMEZONE_CHANGED");
         intentFilter.addAction("android.intent.action.ALARM_CHANGED");
         intentFilter.addAction("android.intent.action.ON_DAY_CHANGE");
         intentFilter.addAction("android.intent.action.WORLD_CITIES_CHANGED");
@@ -125,5 +124,18 @@ public class UploadUtils {
         }
     }
 
+    public static void saveActionTime(Context context, Intent intent){
+        try {
+            String action = intent.getAction();
+            String data = TimeUtil.long2String(System.currentTimeMillis(), TimeUtil.HOUR_MM_SS);
+            SharedPreferences sp = context.getSharedPreferences("geolo", Context.MODE_PRIVATE);
+            HashSet<String> setList = (HashSet<String>) sp.getStringSet(action, new HashSet<>());
+            HashSet<String> newSetList = new HashSet<>(setList);
+            newSetList.add(data);
+            sp.edit().putStringSet(action, newSetList).apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

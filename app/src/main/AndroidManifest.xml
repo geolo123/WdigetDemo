@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.wdigetdemo">
 
     <application
@@ -51,19 +52,19 @@
         </receiver>
 
         <receiver
-            android:label="simple_clock"
-            android:name=".widget.WidgetSimpleProvider"
+            android:label="RescheduleReceiver"
+            android:name=".broadcastReceiver.RescheduleReceiver"
+            android:directBootAware="true"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            tools:targetApi="n">
             <intent-filter android:priority="1000">
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.ACTION_EXTERNAL_APPLICATIONS_AVAILABLE" />
             </intent-filter>
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_provider_demo" />
         </receiver>
+
     </application>
 
 </manifest>
