@@ -22,12 +22,12 @@ public class PeriodicWorker extends Worker {
     public PeriodicWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         Log.e("geolo", "PeriodicWorker -- 初始化 PeriodicWorker");
-        SharedPreferences sp = context.getSharedPreferences("geolo", Context.MODE_PRIVATE);
-        if (!sp.getBoolean("geolo", false)){
-            UploadUtils.myRegisterReceiver(context);
-            UploadUtils.myRegisterReceiverTimeTick(context);
-            sp.edit().putBoolean("geolo", true).apply();
-        }
+//        SharedPreferences sp = context.getSharedPreferences("geolo", Context.MODE_PRIVATE);
+//        if (!sp.getBoolean("geolo", false)){
+//            UploadUtils.myRegisterReceiver(context);
+//            UploadUtils.myRegisterReceiverTimeTick(context);
+//            sp.edit().putBoolean("geolo", true).apply();
+//        }
     }
 
     @NonNull
