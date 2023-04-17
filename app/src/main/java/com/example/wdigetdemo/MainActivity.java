@@ -2,6 +2,7 @@ package com.example.wdigetdemo;
 
 import android.os.Bundle;
 
+import com.example.wdigetdemo.widget.UploadUtils;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        //UploadUtils.myRegisterReceiver(this);
     }
 
     @Override

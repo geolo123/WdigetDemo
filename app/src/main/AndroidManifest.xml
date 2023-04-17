@@ -24,16 +24,46 @@
 
         <receiver
             android:name=".widget.TestWidgetProvider"
+            android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="android.appwidget.action.REFRESH" />
+                <!--                <action android:name="android.appwidget.action.REFRESH" />-->
+                <!-- colorful-widget -->
+                <!--                <action android:name="com.colorful.widget.superwidget.EmojiAdapter.Click46" />-->
+                <!--                <action android:name="android.appwidget.action.SuperWidgetProvider46.Update" />-->
+                <!--                <action android:name="com.widgets.magic.ON_TIME_CHANGE" />-->
+                <!--                <action android:name="com.colorful.widget.action.ignore" />-->
+                <!-- https://android.googlesource.com/platform/packages/apps/DeskClock/+/refs/heads/master/AndroidManifest.xml -->
+                <!--                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />-->
+                <!--                <action android:name="android.intent.action.DATE_CHANGED" />-->
+                <!--                <action android:name="android.intent.action.LOCALE_CHANGED" />-->
+                <!--                <action android:name="android.intent.action.SCREEN_ON" />-->
+                <!--                <action android:name="android.intent.action.TIME_SET" />-->
+                <!--                <action android:name="android.intent.action.TIMEZONE_CHANGED" />-->
+                <!--                <action android:name="com.android.deskclock.ALARM_CHANGED" />-->
+                <!--                <action android:name="com.android.deskclock.ON_DAY_CHANGE" />-->
+                <!--                <action android:name="com.android.deskclock.WORLD_CITIES_CHANGED" />-->
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider_demo" />
         </receiver>
 
+        <receiver
+            android:label="simple_clock"
+            android:name=".widget.WidgetSimpleProvider"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.ACTION_EXTERNAL_APPLICATIONS_AVAILABLE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider_demo" />
+        </receiver>
     </application>
 
 </manifest>

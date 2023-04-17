@@ -20,6 +20,20 @@
         android:id="@+id/tv_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        tools:text="999999999999" />
 
+    <TextClock
+        android:id="@+id/day_text"
+        android:layout_width="match_parent"
+        android:layout_height="21dp"
+        android:format12Hour="hh:mm:ss"
+        android:format24Hour="HH:mm:ss"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="#000000"
+        tools:text="198033333"
+        android:textSize="15dp"
+        android:layout_marginTop="150dp"/>
 </RelativeLayout>

@@ -1,17 +1,13 @@
 package com.example.wdigetdemo.widget;
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.RemoteViews;
-
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.example.wdigetdemo.R;
-import com.example.wdigetdemo.TimeUtil;
 
 /**
  * Author: clement
@@ -23,7 +19,12 @@ public class TestWorker extends Worker {
     public TestWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         Log.e("geolo", "TestWorker--TestWorker() -- 初始化 TestWorker");
-
+        SharedPreferences sp = context.getSharedPreferences("geolo", Context.MODE_PRIVATE);
+        if (!sp.getBoolean("geolo", false)){
+            UploadUtils.myRegisterReceiver(context);
+            sp.edit().putBoolean("geolo", true).apply();
+        }
+        UploadUtils.myRegisterReceiverTimeTick(context);
     }
 
     @NonNull
@@ -37,28 +38,8 @@ public class TestWorker extends Worker {
             e.printStackTrace();
         }
 
-        //刷新widget
-        updateWidget(getApplicationContext());
-
+        // 刷新widget
+        UploadUtils.updateWidget(getApplicationContext(), R.layout.widget_layout, TestWidgetProvider.class);
         return Result.success();
-    }
-
-    /**
-     * 刷新widget
-     */
-    private void updateWidget(Context context) {
-        Log.e("geolo", "TestWorker--updateWidget() -- 通过远程对象修改textview");
-        String data = TimeUtil.long2String(System.currentTimeMillis(), TimeUtil.HOUR_MM_SS);
-        //只能通过远程对象来设置appwidget中的控件状态
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-        //通过远程对象修改textview
-        remoteViews.setTextViewText(R.id.tv_text, data);
-
-        //获得appwidget管理实例，用于管理appwidget以便进行更新操作
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        //获得所有本程序创建的appwidget
-        ComponentName componentName = new ComponentName(context, TestWidgetProvider.class);
-        //更新appwidget
-        appWidgetManager.updateAppWidget(componentName, remoteViews);
     }
 }
