@@ -21,6 +21,7 @@ import androidx.work.WorkManager;
 
 import com.example.wdigetdemo.R;
 import com.example.wdigetdemo.TimeUtil;
+import com.example.wdigetdemo.works.PeriodicWorker;
 import com.example.wdigetdemo.works.TestWorker;
 
 import java.util.HashSet;
@@ -100,11 +101,9 @@ public class TestWidgetProvider extends AppWidgetProvider {
         startAlarmManager(context);
 
         //开始定时工作,间隔15分钟刷新一次
-        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(TestWorker.class,
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(PeriodicWorker.class,
                 PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS)
-                .setConstraints(new Constraints.Builder()
-                        .setRequiresCharging(true)
-                        .build())
+                .setConstraints(new Constraints.Builder().setRequiresCharging(true).build())
                 .build();
         WorkManager.getInstance(context)
                 .enqueueUniquePeriodicWork(WORKER_NAME, ExistingPeriodicWorkPolicy.REPLACE, workRequest);

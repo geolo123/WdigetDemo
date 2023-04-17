@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -14,9 +15,11 @@ import androidx.work.WorkManager;
 
 import com.example.wdigetdemo.R;
 import com.example.wdigetdemo.TimeUtil;
+import com.example.wdigetdemo.broadcastReceiver.TimeTickReceiver;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -78,10 +81,10 @@ public class UploadUtils {
 //        intentFilter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
         intentFilter.addAction(Intent.ACTION_TIME_TICK);
         // context.registerReceiver(TestWidgetProvider.mBroadcast,intentFilter);
-        context.registerReceiver(new TestWidgetProvider(), intentFilter);
+        context.registerReceiver(new TimeTickReceiver(), intentFilter);
     }
 
-    private boolean isWorkScheduled(String tag, Context context) {
+    public static boolean isWorkScheduled(String tag, Context context) {
 
         WorkManager instance = WorkManager.getInstance(context);
         ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(tag);
@@ -103,4 +106,21 @@ public class UploadUtils {
         }
         return running;
     }
+
+    /**
+     * 需要查询的特定广播，只能查看是静态注册
+     */
+    public static void getReceivers(Context context) {
+        Intent intent = new Intent(Intent.ACTION_TIME_TICK);
+        // 获取系统中所有已注册上述广播的接收器
+        List<ResolveInfo> receivers = context.getPackageManager().queryBroadcastReceivers(intent, 0);
+        for (ResolveInfo resolveInfo : receivers) {
+            if (resolveInfo.activityInfo.packageName.equals(context.getPackageName())) {
+                // 当前app中已注册上述广播的接收器类名
+                Log.d("geolo", "resolveInfo.activityInfo.name=" + resolveInfo.activityInfo.name);
+            }
+        }
+    }
+
+
 }
