@@ -42,7 +42,7 @@ public class TestWorker extends Worker {
             e.printStackTrace();
         }
 
-        UploadUtils.getReceivers(context);
+        UploadUtils.isWorkScheduled("com.example.wdigetdemo.works.TestWorker", context);
     }
 
     @NonNull

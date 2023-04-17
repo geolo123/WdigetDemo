@@ -98,9 +98,12 @@ public class UploadUtils {
             Log.d("geolo", "ExecutionException in isWorkScheduled: " + e);
         } catch (InterruptedException e) {
             Log.d("geolo", "InterruptedException in isWorkScheduled: " + e);
+        } catch (Exception e){
+            Log.d("geolo", "Exception in isWorkScheduled: " + e);
         }
 
         for (WorkInfo workInfo : workInfoList) {
+            Log.d("geolo", "my workInfo : " + workInfo);
             WorkInfo.State state = workInfo.getState();
             running = running || (state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED);
         }
