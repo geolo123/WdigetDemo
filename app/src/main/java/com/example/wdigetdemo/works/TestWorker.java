@@ -1,4 +1,4 @@
-package com.example.wdigetdemo.widget;
+package com.example.wdigetdemo.works;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,6 +8,8 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.example.wdigetdemo.R;
+import com.example.wdigetdemo.widget.TestWidgetProvider;
+import com.example.wdigetdemo.widget.UploadUtils;
 
 /**
  * Author: clement
@@ -22,9 +24,9 @@ public class TestWorker extends Worker {
         SharedPreferences sp = context.getSharedPreferences("geolo", Context.MODE_PRIVATE);
         if (!sp.getBoolean("geolo", false)){
             UploadUtils.myRegisterReceiver(context);
+            UploadUtils.myRegisterReceiverTimeTick(context);
             sp.edit().putBoolean("geolo", true).apply();
         }
-        UploadUtils.myRegisterReceiverTimeTick(context);
     }
 
     @NonNull

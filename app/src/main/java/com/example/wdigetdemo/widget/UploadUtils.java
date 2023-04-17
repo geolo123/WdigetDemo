@@ -9,14 +9,22 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
+
 import com.example.wdigetdemo.R;
 import com.example.wdigetdemo.TimeUtil;
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class UploadUtils {
 
     public static final String REFRESH_ACTION = "android.appwidget.action.REFRESH";
     public static final String REFRESH_ACTION2 = "android.appwidget.action.REFRESH2";
-    public static final String REFRESH_ACTION3 = "android.appwidget.action.REFRESH3";
+    public static final String REFRESH_ACTION3 = "android.appwidget.action.from.ALARM";
 
     public static void updateWidget(Context context, int layoutId, Class<?> cls) {
         Log.e("geolo", "UploadUtils--updateWidget() -- 通过远程对象修改textview");
@@ -34,7 +42,7 @@ public class UploadUtils {
         appWidgetManager.updateAppWidget(componentName, remoteViews);
     }
 
-    public static void myRegisterReceiver(Context context){
+    public static void myRegisterReceiver(Context context) {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
         intentFilter.addAction("android.appwidget.action.APPWIDGET_UPDATE");
@@ -65,11 +73,34 @@ public class UploadUtils {
         context.registerReceiver(new TestWidgetProvider(), intentFilter);
     }
 
-    public static void myRegisterReceiverTimeTick(Context context){
+    public static void myRegisterReceiverTimeTick(Context context) {
         IntentFilter intentFilter = new IntentFilter();
 //        intentFilter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
         intentFilter.addAction(Intent.ACTION_TIME_TICK);
         // context.registerReceiver(TestWidgetProvider.mBroadcast,intentFilter);
         context.registerReceiver(new TestWidgetProvider(), intentFilter);
+    }
+
+    private boolean isWorkScheduled(String tag, Context context) {
+
+        WorkManager instance = WorkManager.getInstance(context);
+        ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(tag);
+
+        boolean running = false;
+        List<WorkInfo> workInfoList = Collections.emptyList(); // Singleton, no performance penalty
+
+        try {
+            workInfoList = statuses.get();
+        } catch (ExecutionException e) {
+            Log.d("geolo", "ExecutionException in isWorkScheduled: " + e);
+        } catch (InterruptedException e) {
+            Log.d("geolo", "InterruptedException in isWorkScheduled: " + e);
+        }
+
+        for (WorkInfo workInfo : workInfoList) {
+            WorkInfo.State state = workInfo.getState();
+            running = running || (state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED);
+        }
+        return running;
     }
 }

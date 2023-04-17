@@ -6,14 +6,10 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.SystemClock;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -25,6 +21,7 @@ import androidx.work.WorkManager;
 
 import com.example.wdigetdemo.R;
 import com.example.wdigetdemo.TimeUtil;
+import com.example.wdigetdemo.works.TestWorker;
 
 import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
@@ -36,11 +33,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class TestWidgetProvider extends AppWidgetProvider {
 
-    //系统更新广播
-    public static final String APPWIDGET_UPDATE = "android.appwidget.action.APPWIDGET_UPDATE";
-    //自定义的刷新广播
-
-
     //定期任务的name
     private static final String WORKER_NAME = "TestWorker";
 
@@ -48,21 +40,21 @@ public class TestWidgetProvider extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
         Log.e("geolo", "onReceive() -- 接收主动点击刷新广播/系统刷新广播， intent.getAction ->" + intent.getAction());
+        String action = intent.getAction();
         //接收主动点击刷新广播/系统刷新广播
-        if (TextUtils.equals(intent.getAction(), UploadUtils.REFRESH_ACTION)
-                || TextUtils.equals(intent.getAction(), UploadUtils.REFRESH_ACTION2)
-                || TextUtils.equals(intent.getAction(), UploadUtils.REFRESH_ACTION3)
-                || TextUtils.equals(intent.getAction(), APPWIDGET_UPDATE)
-                || TextUtils.equals(intent.getAction(), Intent.ACTION_TIME_TICK)) {
-            //执行一次任务
-            WorkManager.getInstance(context).enqueue(OneTimeWorkRequest.from(TestWorker.class));
 
+        //执行一次任务
+        WorkManager.getInstance(context).enqueue(OneTimeWorkRequest.from(TestWorker.class));
+
+        try {
             String data = TimeUtil.long2String(System.currentTimeMillis(), TimeUtil.HOUR_MM_SS);
             SharedPreferences sp = context.getSharedPreferences("geolo", Context.MODE_PRIVATE);
-            HashSet<String> setList = (HashSet<String>) sp.getStringSet("uploadTime", new HashSet<>());
+            HashSet<String> setList = (HashSet<String>) sp.getStringSet(action, new HashSet<>());
             HashSet<String> newSetList = new HashSet<>(setList);
-            newSetList.add(data + " --- " + intent.getAction());
-            sp.edit().putStringSet("uploadTime", newSetList).apply();
+            newSetList.add(data);
+            sp.edit().putStringSet(action, newSetList).apply();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -133,16 +125,10 @@ public class TestWidgetProvider extends AppWidgetProvider {
             Intent intent = new Intent();
             intent.setClass(context, TestWidgetProvider.class);
             intent.setAction(UploadUtils.REFRESH_ACTION3);
-            intent.setFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
             intent.putExtra("'geolo'", 0);
             //设置pendingIntent
-            PendingIntent pendingIntent;
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
-            } else {
-                pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
-            }
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
             ((AlarmManager) context.getSystemService(ALARM_SERVICE)).setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.currentThreadTimeMillis(), 60000L, pendingIntent);
         }
     }
