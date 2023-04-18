@@ -18,7 +18,6 @@ import com.example.wdigetdemo.TimeUtil;
 import com.example.wdigetdemo.widget.TestWidgetProvider;
 import com.example.wdigetdemo.widget.UploadUtils;
 
-import java.util.HashSet;
 import java.util.Random;
 
 public class MyJobService extends JobService {
