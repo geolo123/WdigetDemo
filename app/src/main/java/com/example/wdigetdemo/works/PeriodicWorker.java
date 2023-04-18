@@ -9,6 +9,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.example.wdigetdemo.R;
+import com.example.wdigetdemo.TimeUtil;
 import com.example.wdigetdemo.widget.TestWidgetProvider;
 import com.example.wdigetdemo.widget.UploadUtils;
 
@@ -38,6 +39,14 @@ public class PeriodicWorker extends Worker {
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            String data = TimeUtil.long2String(System.currentTimeMillis(), TimeUtil.HOUR_MM_SS);
+            SharedPreferences sp = getApplicationContext().getSharedPreferences("geolo", Context.MODE_PRIVATE);
+            sp.edit().putString(PeriodicWorker.class.getSimpleName(), data).apply();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

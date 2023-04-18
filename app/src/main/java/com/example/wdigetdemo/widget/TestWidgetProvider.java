@@ -21,6 +21,7 @@ import androidx.work.WorkManager;
 
 import com.example.wdigetdemo.R;
 import com.example.wdigetdemo.TimeUtil;
+import com.example.wdigetdemo.job.MyJobService;
 import com.example.wdigetdemo.works.PeriodicWorker;
 import com.example.wdigetdemo.works.TestWorker;
 
@@ -94,6 +95,9 @@ public class TestWidgetProvider extends AppWidgetProvider {
                 .build();
         WorkManager.getInstance(context)
                 .enqueueUniquePeriodicWork(WORKER_NAME, ExistingPeriodicWorkPolicy.REPLACE, workRequest);
+
+        MyJobService.scheduleJob(context,  0,true);  //mainActivity context, not listener...
+
     }
 
     @Override
