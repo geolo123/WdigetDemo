@@ -140,34 +140,28 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <!--                <action android:name="android.appwidget.action.REFRESH" />-->
-                <!-- colorful-widget -->
-                <!--                <action android:name="com.colorful.widget.superwidget.EmojiAdapter.Click46" />-->
-                <!--                <action android:name="android.appwidget.action.SuperWidgetProvider46.Update" />-->
-                <!--                <action android:name="com.widgets.magic.ON_TIME_CHANGE" />-->
-                <!--                <action android:name="com.colorful.widget.action.ignore" />-->
-                <!-- https://android.googlesource.com/platform/packages/apps/DeskClock/+/refs/heads/master/AndroidManifest.xml -->
-                <!--                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />-->
-                <!--                <action android:name="android.intent.action.DATE_CHANGED" />-->
-                <!--                <action android:name="android.intent.action.LOCALE_CHANGED" />-->
-                <!--                <action android:name="android.intent.action.SCREEN_ON" />-->
-                <!--                <action android:name="android.intent.action.TIME_SET" />-->
-                <!--                <action android:name="android.intent.action.TIMEZONE_CHANGED" />-->
-                <!--                <action android:name="com.android.deskclock.ALARM_CHANGED" />-->
-                <!--                <action android:name="com.android.deskclock.ON_DAY_CHANGE" />-->
-                <!--                <action android:name="com.android.deskclock.WORLD_CITIES_CHANGED" />-->
+                <action android:name="miui.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
+            <meta-data
+                android:name="miuiWidgetRefresh"
+                android:value="exposure" />
+            <meta-data
+                android:name="miuiWidgetRefreshMinInterval"
+                android:value="10000" />
+            <meta-data
+                android:name="miuiWidget"
+                android:value="true" />
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider_demo" />
         </receiver>
 
         <receiver
-            android:label="RescheduleReceiver"
             android:name=".broadcastReceiver.RescheduleReceiver"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
+            android:label="RescheduleReceiver"
             tools:targetApi="n">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.TIME_SET" />
