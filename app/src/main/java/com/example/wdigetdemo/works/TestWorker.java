@@ -22,8 +22,8 @@ public class TestWorker extends Worker {
 
     public TestWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
-        Log.e("geolo", "TestWorker--TestWorker() -- 初始化 TestWorker -- context" + context);
-        SharedPreferences sp = context.getSharedPreferences("geolo", Context.MODE_PRIVATE);
+        Log.e("com/example/wdigetdemo/geolo", "TestWorker--TestWorker() -- 初始化 TestWorker -- context" + context);
+        SharedPreferences sp = context.getSharedPreferences("com/example/wdigetdemo/geolo", Context.MODE_PRIVATE);
 //        if (!sp.getBoolean("geolo", false)) {
 //            sp.edit().putBoolean("geolo", true).apply();
 //        }
@@ -34,7 +34,7 @@ public class TestWorker extends Worker {
             String preContextName = sp.getString("ContextName", "");
             if (!contextName.equals(preContextName)) {
                 sp.edit().putString("ContextName", contextName).apply();
-                Log.e("geolo", "TestWorker-- 注册广播");
+                Log.e("com/example/wdigetdemo/geolo", "TestWorker-- 注册广播");
                 UploadUtils.myRegisterReceiver(context);
                 UploadUtils.myRegisterReceiverTimeTick(context);
             }
@@ -48,7 +48,7 @@ public class TestWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        Log.e("geolo", "TestWorker--doWork() -- 模拟耗时/网络请求操作");
+        Log.e("com/example/wdigetdemo/geolo", "TestWorker--doWork() -- 模拟耗时/网络请求操作");
         //模拟耗时/网络请求操作
         try {
             Thread.sleep(500);

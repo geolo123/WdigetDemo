@@ -15,7 +15,7 @@ public class WifiReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e("geolo", "WifiReceiver - onReceive() -- 接收广播， intent.getAction ->" + intent.getAction());
+        Log.e("com/example/wdigetdemo/geolo", "WifiReceiver - onReceive() -- 接收广播， intent.getAction ->" + intent.getAction());
         WorkManager.getInstance(context).enqueue(OneTimeWorkRequest.from(TestWorker.class));
         UploadUtils.saveActionTime(context,intent);
     }

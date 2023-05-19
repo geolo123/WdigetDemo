@@ -36,7 +36,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e("geolo", "BatteryReceiver - onReceive() -- 接收广播， intent.getAction ->" + intent.getAction());
+        Log.e("com/example/wdigetdemo/geolo", "BatteryReceiver - onReceive() -- 接收广播， intent.getAction ->" + intent.getAction());
         WorkManager.getInstance(context).enqueue(OneTimeWorkRequest.from(TestWorker.class));
         UploadUtils.saveActionTime(context,intent);
     }

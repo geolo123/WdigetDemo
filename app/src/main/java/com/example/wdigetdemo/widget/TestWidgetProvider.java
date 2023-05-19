@@ -8,7 +8,6 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -20,12 +19,10 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.example.wdigetdemo.R;
-import com.example.wdigetdemo.TimeUtil;
 import com.example.wdigetdemo.job.MyJobService;
 import com.example.wdigetdemo.works.PeriodicWorker;
 import com.example.wdigetdemo.works.TestWorker;
 
-import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -41,7 +38,7 @@ public class TestWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-        Log.e("geolo", "onReceive() -- 接收主动点击刷新广播/系统刷新广播， intent.getAction ->" + intent.getAction());
+        Log.e("com/example/wdigetdemo/geolo", "onReceive() -- 接收主动点击刷新广播/系统刷新广播， intent.getAction ->" + intent.getAction());
         //执行一次任务
         WorkManager.getInstance(context).enqueue(OneTimeWorkRequest.from(TestWorker.class));
         UploadUtils.saveActionTime(context,intent);
@@ -50,7 +47,7 @@ public class TestWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-        Log.e("geolo", "onUpdate() -- 到达指定的更新时间或者当用户向桌面添加AppWidget时被调用,或更新widget时");
+        Log.e("com/example/wdigetdemo/geolo", "onUpdate() -- 到达指定的更新时间或者当用户向桌面添加AppWidget时被调用,或更新widget时");
         //到达指定的更新时间或者当用户向桌面添加AppWidget时被调用,或更新widget时
 
         //点击事件
@@ -78,12 +75,12 @@ public class TestWidgetProvider extends AppWidgetProvider {
     public void onDeleted(Context context, int[] appWidgetIds) {
         super.onDeleted(context, appWidgetIds);
         //删除一个AppWidget时调用
-        Log.e("geolo", "onDeleted() -- 删除一个AppWidget时调用");
+        Log.e("com/example/wdigetdemo/geolo", "onDeleted() -- 删除一个AppWidget时调用");
     }
 
     @Override
     public void onEnabled(Context context) {
-        Log.e("geolo", "onEnabled() -- AppWidget的实例第一次被创建时调用, 开始定时工作,间隔15分钟刷新一次");
+        Log.e("com/example/wdigetdemo/geolo", "onEnabled() -- AppWidget的实例第一次被创建时调用, 开始定时工作,间隔15分钟刷新一次");
         //AppWidget的实例第一次被创建时调用
         super.onEnabled(context);
         startAlarmManager(context);
@@ -102,7 +99,7 @@ public class TestWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onDisabled(Context context) {
-        Log.e("geolo", "onDisabled() -- 删除一个AppWidget时调用");
+        Log.e("com/example/wdigetdemo/geolo", "onDisabled() -- 删除一个AppWidget时调用");
         //删除一个AppWidget时调用
         super.onDisabled(context);
         //停止任务

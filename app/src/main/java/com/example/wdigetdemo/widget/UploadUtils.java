@@ -21,7 +21,6 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -32,7 +31,7 @@ public class UploadUtils {
     public static final String REFRESH_ACTION3 = "android.appwidget.action.from.ALARM";
 
     public static void updateWidget(Context context, int layoutId, Class<?> cls) {
-        Log.e("geolo", "UploadUtils--updateWidget() -- 通过远程对象修改textview");
+        Log.e("com/example/wdigetdemo/geolo", "UploadUtils--updateWidget() -- 通过远程对象修改textview");
         String data = TimeUtil.long2String(System.currentTimeMillis(), TimeUtil.HOUR_MM_SS);
         //只能通过远程对象来设置appwidget中的控件状态
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), layoutId);
@@ -94,15 +93,15 @@ public class UploadUtils {
         try {
             workInfoList = statuses.get();
         } catch (ExecutionException e) {
-            Log.d("geolo", "ExecutionException in isWorkScheduled: " + e);
+            Log.d("com/example/wdigetdemo/geolo", "ExecutionException in isWorkScheduled: " + e);
         } catch (InterruptedException e) {
-            Log.d("geolo", "InterruptedException in isWorkScheduled: " + e);
+            Log.d("com/example/wdigetdemo/geolo", "InterruptedException in isWorkScheduled: " + e);
         } catch (Exception e){
-            Log.d("geolo", "Exception in isWorkScheduled: " + e);
+            Log.d("com/example/wdigetdemo/geolo", "Exception in isWorkScheduled: " + e);
         }
 
         for (WorkInfo workInfo : workInfoList) {
-            Log.d("geolo", "my workInfo : " + workInfo);
+            Log.d("com/example/wdigetdemo/geolo", "my workInfo : " + workInfo);
             WorkInfo.State state = workInfo.getState();
             running = running || (state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED);
         }
@@ -119,7 +118,7 @@ public class UploadUtils {
         for (ResolveInfo resolveInfo : receivers) {
             if (resolveInfo.activityInfo.packageName.equals(context.getPackageName())) {
                 // 当前app中已注册上述广播的接收器类名
-                Log.d("geolo", "resolveInfo.activityInfo.name=" + resolveInfo.activityInfo.name);
+                Log.d("com/example/wdigetdemo/geolo", "resolveInfo.activityInfo.name=" + resolveInfo.activityInfo.name);
             }
         }
     }
@@ -128,7 +127,7 @@ public class UploadUtils {
         try {
             String action = intent.getAction();
             String data = TimeUtil.long2String(System.currentTimeMillis(), TimeUtil.HOUR_MM_SS);
-            SharedPreferences sp = context.getSharedPreferences("geolo", Context.MODE_PRIVATE);
+            SharedPreferences sp = context.getSharedPreferences("com/example/wdigetdemo/geolo", Context.MODE_PRIVATE);
             HashSet<String> setList = (HashSet<String>) sp.getStringSet(action, new HashSet<>());
             HashSet<String> newSetList = new HashSet<>(setList);
             newSetList.add(data);

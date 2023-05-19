@@ -1,3 +1,20 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="sp_8">8dp</dimen>
+    <dimen name="sp_10">10dp</dimen>
+    <dimen name="sp_11">11dp</dimen>
+    <dimen name="sp_12">12dp</dimen>
+    <dimen name="sp_13">13dp</dimen>
+    <dimen name="sp_14">14dp</dimen>
+    <dimen name="sp_15">15dp</dimen>
+    <dimen name="sp_16">16dp</dimen>
+    <dimen name="sp_17">17dp</dimen>
+    <dimen name="sp_18">18dp</dimen>
+    <dimen name="sp_20">20dp</dimen>
+    <dimen name="sp_24">24dp</dimen>
+    <dimen name="sp_28">28dp</dimen>
+    <dimen name="sp_36">36dp</dimen>
+    <dimen name="sp_55">55dp</dimen>
+
+    <dimen name="dp_3">3dp</dimen>
 </resources>

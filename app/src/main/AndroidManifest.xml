@@ -122,8 +122,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WdigetDemo">
 
+        <meta-data
+            android:name="miuiWidgetVersion"
+            android:value="2" />
+
         <activity
             android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.WdigetDemo.NoActionBar">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".geolo.CalendarActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.WdigetDemo.NoActionBar">
@@ -150,7 +166,7 @@
                 android:value="10000" />
             <meta-data
                 android:name="miuiWidget"
-                android:value="true" />
+                android:value="false" />
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider_demo" />

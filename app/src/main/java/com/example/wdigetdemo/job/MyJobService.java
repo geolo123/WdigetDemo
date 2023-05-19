@@ -69,7 +69,7 @@ public class MyJobService extends JobService {
 
         try {
             String data = TimeUtil.long2String(System.currentTimeMillis(), TimeUtil.HOUR_MM_SS);
-            SharedPreferences sp = getApplicationContext().getSharedPreferences("geolo", Context.MODE_PRIVATE);
+            SharedPreferences sp = getApplicationContext().getSharedPreferences("com/example/wdigetdemo/geolo", Context.MODE_PRIVATE);
             sp.edit().putString(MyJobService.class.getSimpleName(), data).apply();
         } catch (Exception e) {
             e.printStackTrace();

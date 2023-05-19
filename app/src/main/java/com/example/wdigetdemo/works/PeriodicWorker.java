@@ -22,7 +22,7 @@ public class PeriodicWorker extends Worker {
 
     public PeriodicWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
-        Log.e("geolo", "PeriodicWorker -- 初始化 PeriodicWorker");
+        Log.e("com/example/wdigetdemo/geolo", "PeriodicWorker -- 初始化 PeriodicWorker");
 //        SharedPreferences sp = context.getSharedPreferences("geolo", Context.MODE_PRIVATE);
 //        if (!sp.getBoolean("geolo", false)){
 //            UploadUtils.myRegisterReceiver(context);
@@ -34,7 +34,7 @@ public class PeriodicWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        Log.e("geolo", "PeriodicWorker--doWork() -- 模拟耗时/网络请求操作");
+        Log.e("com/example/wdigetdemo/geolo", "PeriodicWorker--doWork() -- 模拟耗时/网络请求操作");
         //模拟耗时/网络请求操作
         try {
             Thread.sleep(500);
@@ -44,7 +44,7 @@ public class PeriodicWorker extends Worker {
 
         try {
             String data = TimeUtil.long2String(System.currentTimeMillis(), TimeUtil.HOUR_MM_SS);
-            SharedPreferences sp = getApplicationContext().getSharedPreferences("geolo", Context.MODE_PRIVATE);
+            SharedPreferences sp = getApplicationContext().getSharedPreferences("com/example/wdigetdemo/geolo", Context.MODE_PRIVATE);
             sp.edit().putString(PeriodicWorker.class.getSimpleName(), data).apply();
         } catch (Exception e) {
             e.printStackTrace();
