@@ -24,6 +24,9 @@ public class CalendarActivity extends AppCompatActivity {
         itemBeanList.add(new CalendarItemBean("bbb",250, 500));
         itemBeanList.add(new CalendarItemBean("cccccc",300, 550));
         itemBeanList.add(new CalendarItemBean("ddd",400, 600));
+        itemBeanList.add(new CalendarItemBean("ddd急急急",400, 600));
+        itemBeanList.add(new CalendarItemBean("ddd对对是对是对是是是对对",400, 600));
+        itemBeanList.add(new CalendarItemBean("ddd鹅鹅鹅饿",400, 600));
         itemBeanList.add(new CalendarItemBean("eee",550, 750));
         itemBeanList.add(new CalendarItemBean("fff",600, 800));
         itemBeanList.add(new CalendarItemBean("ggg",650, 900));

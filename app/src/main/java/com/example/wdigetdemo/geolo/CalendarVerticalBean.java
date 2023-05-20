@@ -78,14 +78,15 @@ public class CalendarVerticalBean {
 
     private void drawText(Canvas canvas, String text, RectF parentRectF) {
         float itemWidth = parentRectF.right - parentRectF.left;
-        int textMaxNum = textPaint.breakText(text, true, itemWidth, null);
+        float drawWidth = itemWidth - 30f;
+        int textMaxNum = textPaint.breakText(text, true, drawWidth, null);
         textMaxNum = textMaxNum == 0 ? 1 : textMaxNum;
         int lines = BigDecimal.valueOf(text.length() / (float) textMaxNum).setScale(0, RoundingMode.UP).intValue();
         float textHeight = textPaint.getFontMetrics().descent - textPaint.getFontMetrics().ascent;
         float maxHeight = parentRectF.bottom - parentRectF.top;
         while (maxHeight < lines * textHeight) {
             textPaint.setTextSize(textPaint.getTextSize() - 3.0f);
-            textMaxNum = textPaint.breakText(text, true, itemWidth, null);
+            textMaxNum = textPaint.breakText(text, true, drawWidth, null);
             textMaxNum = textMaxNum == 0 ? 1 : textMaxNum;
             lines = text.length() / textMaxNum + (text.length() % textMaxNum > 0 ? 1 : 0);
             textHeight = textPaint.getFontMetrics().descent - textPaint.getFontMetrics().ascent;
