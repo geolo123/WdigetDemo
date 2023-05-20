@@ -32,8 +32,8 @@ public class CalendarActivity extends AppCompatActivity {
         itemBeanList.add(new CalendarItemBean("jjj",250, 800));
         itemBeanList.add(new CalendarItemBean("kkkkkk",250, 800));
         itemBeanList.add(new CalendarItemBean("llllll",250, 1800));
-        itemBeanList.add(new CalendarItemBean("mmmmmm",550, 1800));
-        itemBeanList.add(new CalendarItemBean("nnnnnn",850, 2300));
+        itemBeanList.add(new CalendarItemBean("mmmmmmmmmmmmmmmmmm",550, 1800));
+        itemBeanList.add(new CalendarItemBean("笑哈哈哈，嘟嘟嘟嘟，ε(┬┬﹏┬┬)3",850, 2300));
 
         viewBinding.calendarView.setCalendarItemBeanList(itemBeanList);
     }
