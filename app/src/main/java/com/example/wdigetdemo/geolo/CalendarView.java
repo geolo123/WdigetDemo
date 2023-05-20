@@ -20,6 +20,7 @@ public class CalendarView extends View {
     private Paint finishPaint, textPaint, toDoPaint;
     private int height, viewWidth;
     private RectF parentRectF = new RectF();
+    private float defaultFontSize = 0;
 
     public CalendarView(Context context) {
         this(context, null);
@@ -35,6 +36,7 @@ public class CalendarView extends View {
 
     public CalendarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        defaultFontSize = context.getResources().getDimension(R.dimen.sp_12);
         finishPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         toDoPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -44,8 +46,7 @@ public class CalendarView extends View {
         finishPaint.setStyle(Paint.Style.FILL);
         finishPaint.setStrokeWidth(2f);
         toDoPaint.setStyle(Paint.Style.FILL);
-        textPaint.setTextSize(context.getResources().getDimension(R.dimen.sp_12));
-
+        textPaint.setTextSize(defaultFontSize);
         parentRectF.left = 0;
         parentRectF.right = 0;
     }
@@ -68,7 +69,9 @@ public class CalendarView extends View {
         for (CalendarVerticalBean verticalBean : verticalBeanList) {
             canvas.save();//保存
             verticalBean.setRadius(mRadius);
+            verticalBean.setTextPaint(textPaint);
             verticalBean.setToDoPaint(i % 2 == 0 ? toDoPaint : finishPaint);
+            verticalBean.setDefaultFontSize(defaultFontSize);
             parentRectF.left = parentRectF.right + mInterval;
             parentRectF.right = parentRectF.left + itemWidth;
             verticalBean.onDraw(canvas, parentRectF);
@@ -81,7 +84,7 @@ public class CalendarView extends View {
     public List<CalendarVerticalBean> verticalBeanList = new ArrayList<>();
     private final float mRadius = this.getResources().getDimension(R.dimen.dp_3);
     private float itemWidth = 0;
-    private float mInterval = 20;
+    private final float mInterval = 20;
 
     public void setCalendarItemBeanList(List<CalendarItemBean> itemBeanList) {
         mergeItemBean(itemBeanList);

@@ -8,7 +8,10 @@ public class CalendarItemBean {
     public float startVirtualY = 0;
     public float endVirtualY = 0;
 
-    public CalendarItemBean(int startVirtualY, int endVirtualY) {
+    private String title = "";
+
+    public CalendarItemBean(String title, int startVirtualY, int endVirtualY) {
+        this.title = title;
         this.startVirtualY = startVirtualY;
         this.endVirtualY = endVirtualY;
     }
@@ -28,6 +31,10 @@ public class CalendarItemBean {
         parentRectF.top = startVirtualY;
         parentRectF.bottom = endVirtualY;
         return parentRectF;
+    }
+
+    public String getTitle() {
+        return this.title;
     }
 
     @NonNull
