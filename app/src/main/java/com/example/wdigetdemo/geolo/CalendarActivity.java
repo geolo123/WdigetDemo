@@ -27,6 +27,14 @@ public class CalendarActivity extends AppCompatActivity {
         itemBeanList.add(new CalendarItemBean(550, 750));
         itemBeanList.add(new CalendarItemBean(600, 800));
         itemBeanList.add(new CalendarItemBean(650, 900));
+        itemBeanList.add(new CalendarItemBean(250, 800));
+        itemBeanList.add(new CalendarItemBean(250, 800));
+        itemBeanList.add(new CalendarItemBean(250, 800));
+        itemBeanList.add(new CalendarItemBean(250, 800));
+        itemBeanList.add(new CalendarItemBean(250, 1800));
+        itemBeanList.add(new CalendarItemBean(550, 1800));
+        itemBeanList.add(new CalendarItemBean(850, 2300));
+
         viewBinding.calendarView.setCalendarItemBeanList(itemBeanList);
     }
 }

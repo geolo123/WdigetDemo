@@ -2,6 +2,8 @@ package com.example.wdigetdemo.geolo;
 
 import android.graphics.RectF;
 
+import androidx.annotation.NonNull;
+
 public class CalendarItemBean {
     public float startVirtualY = 0;
     public float endVirtualY = 0;
@@ -15,8 +17,8 @@ public class CalendarItemBean {
      * 是否发生碰撞
      */
     public boolean isCollision(CalendarItemBean otherItem) {
-        return (this.startVirtualY > otherItem.startVirtualY && this.startVirtualY < otherItem.endVirtualY)
-                || (otherItem.startVirtualY > this.startVirtualY && otherItem.startVirtualY < this.endVirtualY);
+        return (this.startVirtualY >= otherItem.startVirtualY && this.startVirtualY < otherItem.endVirtualY)
+                || (otherItem.startVirtualY >= this.startVirtualY && otherItem.startVirtualY < this.endVirtualY);
     }
 
     /**
@@ -26,5 +28,11 @@ public class CalendarItemBean {
         parentRectF.top = startVirtualY;
         parentRectF.bottom = endVirtualY;
         return parentRectF;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "startVirtualY:" + startVirtualY + ",endVirtualY:" + endVirtualY;
     }
 }

@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,7 @@ public class CalendarVerticalBean {
         this.toDoPaint = toDoPaint;
     }
 
+
     /**
      * X轴和宽度，外部自己能够计算，这边就算需要的高度空间。
      */
@@ -47,5 +50,15 @@ public class CalendarVerticalBean {
             RectF tempRectF = item.calculateRectF(parentRectF);
             canvas.drawRoundRect(tempRectF, mRadius, mRadius, toDoPaint);
         }
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (CalendarItemBean item : itemBeanList) {
+            sb.append(item.toString()).append("; ");
+        }
+        return sb.toString();
     }
 }

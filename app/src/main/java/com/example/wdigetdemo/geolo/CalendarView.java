@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -55,7 +56,8 @@ public class CalendarView extends View {
         viewWidth = MeasureSpec.getSize(widthMeasureSpec);
         height = MeasureSpec.getSize(heightMeasureSpec);
         if (itemWidth <= 0) {
-            itemWidth = (float) viewWidth / verticalBeanList.size();
+            int listSize = verticalBeanList.size();
+            itemWidth = (viewWidth - listSize * mInterval) / listSize;
         }
     }
 
@@ -67,9 +69,9 @@ public class CalendarView extends View {
             canvas.save();//保存
             verticalBean.setRadius(mRadius);
             verticalBean.setToDoPaint(i % 2 == 0 ? toDoPaint : finishPaint);
-            verticalBean.onDraw(canvas, parentRectF);
-            parentRectF.left = parentRectF.right + 30;
+            parentRectF.left = parentRectF.right + mInterval;
             parentRectF.right = parentRectF.left + itemWidth;
+            verticalBean.onDraw(canvas, parentRectF);
             canvas.restore();//恢复
             i++;
         }
@@ -79,9 +81,13 @@ public class CalendarView extends View {
     public List<CalendarVerticalBean> verticalBeanList = new ArrayList<>();
     private final float mRadius = this.getResources().getDimension(R.dimen.dp_3);
     private float itemWidth = 0;
+    private float mInterval = 20;
 
     public void setCalendarItemBeanList(List<CalendarItemBean> itemBeanList) {
         mergeItemBean(itemBeanList);
+        for (CalendarVerticalBean verticalBean : verticalBeanList) {
+            Log.e("geolo", "--> " + verticalBean);
+        }
         invalidate();
     }
 
